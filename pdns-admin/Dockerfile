@@ -1,4 +1,4 @@
-FROM python:3-stretch
+FROM python:3-bookworm
 LABEL maintainer="Jonathan Senecal <JSenecal@jonathansenecal.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -6,13 +6,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY src/ /
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg apt-transport-https \
-  && apt-key adv --no-tty --fetch-keys https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc \
-  && apt-key adv --no-tty --fetch-keys https://dl.yarnpkg.com/debian/pubkey.gpg \
-  && curl -sSL https://deb.nodesource.com/setup_10.x | bash - \
+  && curl -sSL https://deb.nodesource.com/setup_20.x | bash - \
   && ln /etc/apt/sources.list.d.available/* /etc/apt/sources.list.d/ \
   && apt-get update && apt-get install -y --no-install-recommends \
   postgresql-client \
-  mysql-client \
+  default-mysql-client \
   python3-pip python3-dev supervisor \
   libmariadbclient-dev-compat \
   libsasl2-dev libldap2-dev libssl-dev \

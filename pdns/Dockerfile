@@ -1,4 +1,4 @@
-FROM python:3-stretch
+FROM python:3-bookworm
 LABEL maintainer="Jonathan Senecal <JSenecal@jonathansenecal.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -6,16 +6,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY src/ /
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg apt-transport-https \
-  && apt-key adv --no-tty --fetch-keys https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc \
-  && apt-key adv --no-tty --fetch-keys https://repo.powerdns.com/FD380FBB-pub.asc \
-  && ln /etc/apt/sources.list.d.available/* /etc/apt/sources.list.d/ \
   && apt-get update && apt-get install -y --no-install-recommends \
   pdns-server \
   pdns-backend-mysql \
   pdns-backend-pgsql \
   pdns-tools \
   postgresql-client \
-  mysql-client \
+  default-mysql-client \
   && apt-get purge -y --auto-remove curl gnupg \
   && rm -rf /var/lib/apt/lists/*
 
